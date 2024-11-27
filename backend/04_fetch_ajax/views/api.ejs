@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>api 테스트</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      img {
+        width: 400px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>간단 오픈 API 사용하기</h1>
+
+    <h3>고양이 사진 바꾸기</h3>
+    <img src="" alt="기본 이미지" id="img" />
+    <button onclick="chgCatImg()">고양이 사진 변경</button>
+
+    <h3>영화 정보 가져오기</h3>
+    <ul>
+      <li>
+        <div>
+          <img src="" alt="영화 이미지" />
+          <p>영화 제목</p>
+        </div>
+      </li>
+    </ul>
+    <!-- http://www.omdbapi.com/?apikey=[yourkey]& -->
+    <script>
+      function chgCatImg() {
+        fetch("https://api.thecatapi.com/v1/images/search")
+          .then(function (res) {
+            console.log(res);
+            return res.json();
+          })
+          .then(function (data) {
+            console.log(data);
+            const img = document.getElementById("img");
+            img.src = data[0].url;
+            img.alt = `${data[0].id}-cat-image`;
+          });
+      }
+    </script>
+    <script>
+      const word = "love";
+      axios({
+        method: "get",
+        url: "http://www.omdbapi.com/?i=tt3896198&apikey=9a66eebb&s=" + word,
+      }).then((res) => {
+        console.log(res.data);
+        console.log(res.data.search);
+
+        for (let movie of res.data.search) {
+          console.log(movie.Title); //영화 제목
+          console.log(movie.Poster); //영화 이미지
+          console.log(movie.imdbID); //고유 ID
+          ul > li > div > img + p;
+
+          const div = document.createElement("div");
+          const img = document.createEelment("img");
+          const p = document.createElement("p");
+
+          img.src = movie.Poster;
+          img.alt = movie.imdbID + "movie image";
+
+          p.innerHTML = movie.Title;
+          div.append(img, p);
+          container.append(div);
+        }
+      });
+    </script>
+  </body>
+</html>

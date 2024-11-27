@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>form 전송</title>
+  </head>
+  <body>
+    <h2>GET 요청</h2>
+    <form action="/getForm" method="get">
+      <label> id: <input type="text" name="id" /> </label>
+      <br />
+      <label> email: <input type="email" name="email" /> </label>
+      <br />
+      <label> password: <input type="password" name="pswd" /> </label>
+      <br />
+      <button type="submit">제출</button>
+      <button type="button">제출...?</button>
+    </form>
+    <br />
+    <hr />
+    <h2>POST 요청</h2>
+    <form action="/postForm" method="post">
+      <label for="id">아이디: </label>
+      <input
+        type="text"
+        id="id"
+        name="id"
+        placeholder="id를 작성해주세요."
+        required
+        title="아이디는 대소문자, 숫자, 한글로 구성된 네 글자 이상의 문자여야 합니다."
+        pattern="^([a-zA-Z0-9가-힣]){4,}$"
+      />
+      <!-- required는 참, 거짓 중 하나로 값을 주거나 그냥 required만 쓰면 된다. 필수 사항이라는 뜻. -->
+      <br />
+      <label for="pswd">password: </label>
+      <input
+        type="password"
+        id="pswd"
+        name="pswd"
+        placeholder="비밀번호 작성"
+        required
+        title="비밀번호는 영어소문자, 숫자로 구성된 8 ~ 12글자의 문자여야 합니다."
+        pattern="^([a-z0-9]){8,12}$"
+      />
+      <br />
+      <label>
+        <input type="checkbox" name="agree" value="marketing" />
+        마케팅 수신 동의
+      </label>
+      <label>
+        <input type="checkbox" name="agree" value="privacy" />
+        개인정보 수집 동의
+      </label>
+      <label>
+        <input type="checkbox" name="agree" value="use" />
+        이용약관 동의
+      </label>
+      <!-- value 값을 안 정해주면 name 배열에 on만 들어간다. -->
+      <br />
+      <input type="submit" value="제출" />
+    </form>
+
+    <br />
+    <hr />
+    <h2>유효성 검사</h2>
+    <form
+      action="/js-form-check"
+      method="post"
+      name="validationForm"
+      target="_blank"
+      onsubmit="return checkForm(this)"
+    >
+      <input
+        type="text"
+        title="최소 한 글자"
+        id="id"
+        name="id2"
+        minlength="1"
+        placeholder="최소 한 글자 이상을 작성해야 합니다."
+      />
+      <br />
+      <span>우편물 수령 장소</span>
+      <lable><input type="checkbox" name="mail" value="자택" />자택</lable>
+      <lable><input type="checkbox" name="mail" value="회사" />회사</lable>
+      <button>제출</button>
+    </form>
+    <br />
+    <hr style="border: 3px solid gold" />
+    <br />
+
+    <!-- ==================================================================================== -->
+    <!-- 실습용======================================================================= -->
+
+    <form action="/practice1" method="get" name="member" target="_blank">
+      <label>이름: <input type="text" name="you" /></label>
+      <fieldset>
+        <legend>성별</legend>
+        <label><input type="radio" name="gender" value="남자" />남자</label>
+        <label><input type="radio" name="gender" value="여자" />여자</label>
+      </fieldset>
+      <fieldset>
+        <legend>생년월일</legend>
+        <select name="byear">
+          <% for(let i=0; i<44; i++){ %>
+          <option value="<%=1980+i%>"><%=1980+i%></option>
+          <% } %>
+        </select>
+        년
+        <select name="bmonth">
+          <% for(let j=1; j<=12; j++){%>
+          <option id="bmonth" value="<%= j %>"><%= j %></option>
+          <% } %>
+        </select>
+        월
+        <select name="bdate">
+          <% for(let k=1;k<=31;k++){ %>
+          <option value="<%= k %>"><%= k %></option>
+          <% } %>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>관심사</legend>
+        <label><input type="checkbox" name="hobby" value="여행" />여행</label>
+        <label><input type="checkbox" name="hobby" value="패션" />패션</label>
+        <label><input type="checkbox" name="hobby" value="음식" />음식</label>
+      </fieldset>
+
+      <button>회원 가입</button>
+    </form>
+
+    <br />
+    <hr style="border: 3px solid pink" />
+    <br />
+
+    <!-- POST 실습============================================================================================= -->
+
+    <form action="/practice2" method="post" name="member2" target="_blank">
+      <label>이름: <input type="text" name="yourName" /></label>
+      <fieldset>
+        <legend>성별</legend>
+        <label><input type="radio" name="sex" value="남자" />남자</label>
+        <label><input type="radio" name="sex" value="여자" />여자</label>
+      </fieldset>
+      <fieldset>
+        <legend>생년월일</legend>
+        <select name="birYear">
+          <% for(let i=0; i<25; i++){ %>
+          <option value="<%=2000+i%>"><%=2000+i%></option>
+          <% } %>
+        </select>
+        년
+        <select name="birMonth">
+          <% for(let j=1; j<=12; j++){%>
+          <option id="birMonth" value="<%= j %>"><%= j %></option>
+          <% } %>
+        </select>
+        월
+        <select name="birDate">
+          <% for(let k=1;k<=31;k++){ %>
+          <option value="<%= k %>"><%= k %></option>
+          <% } %>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>관심사</legend>
+        <label
+          ><input type="checkbox" name="interest" value="여행" />여행</label
+        >
+        <label
+          ><input type="checkbox" name="interest" value="패션" />패션</label
+        >
+        <label
+          ><input type="checkbox" name="interest" value="음식" />음식</label
+        >
+      </fieldset>
+      <fieldset>
+        <legend>선택</legend>
+        <label></label>좋아하는 색상<input type="color" name="color" />
+        <label></label>좋아하는 숫자<input type="number" name="number" />
+      </fieldset>
+
+      <button>회원 가입</button>
+    </form>
+    <!-- <script>
+      const byear = document.querySelector('[name="byear"]');
+      const bmonth = document.querySelector('[name="bmonth"]');
+      const bdate = document.querySelector('[name="bdate"]');
+    </script> -->
+    <script>
+      function checkForm(form) {
+        //인자가 this로 전달되고 있다.
+        //this는 자기 자신을 가리킨다.
+        //즉, 이 함수에선 this가 form 그 자체를 가리킨다.
+        // const form2 = document.forms["validationForm"];
+        console.log(form);
+        console.log(form.id2);
+        console.log(form.input);
+
+        if (form.id2.value.trim() === "") {
+          alert("아이디를 입력해주세요.");
+
+          return false;
+          //이래야 submit 함수를 늦출 수 있다.
+
+          //체크박스를 하나라도 택해야 submit 이벤트를 막을 수 잇다.
+        }
+
+        console.log(form.mail);
+
+        if (form.mail[0] !== checked || !form.mail[1] !== checked) {
+          alert("우편물 수령 장소를 선택해 주세요.");
+          return false;
+        }
+      }
+    </script>
+  </body>
+</html>

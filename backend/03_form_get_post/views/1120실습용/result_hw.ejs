@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>결과 확인</title>
+    <style>
+      .get {
+        border: 1px solid gray;
+        border-radius: 20%;
+        box-shadow: gray;
+      }
+      .post {
+        font-weight: bold;
+      }
+      .etc {
+        color: orange;
+      }
+      .color {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>결과 확인하기</h1>
+    <h3><span class="post etc"><%=memInfo2.yourName%></span>님 환영합니다!</h3>
+    <div class="post"><%=memInfo2.sex%></div>
+    <div class="post">
+      <%=memInfo2.b_year%>/<%=memInfo2.b_month%>/<%=memInfo2.b_date%>
+    </div>
+    <div class="post"><%=memInfo2.interest%></div>
+
+    <hr />
+    <h3>다른 태그 작성해보기</h3>
+    <p>좋아하는 색깔: <span class="post color"><%=memInfo2.color%></span></p>
+    <p>좋아하는 숫자: <span class="post etc"><%=memInfo2.number%></span></p>
+
+    <br />
+    <a href="/">홈으로 이동하기</a>
+  </body>
+</html>

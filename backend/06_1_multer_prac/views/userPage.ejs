@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>multer과제-사용자 페이지</title>
+    <link href="/statics/CSS/userPage.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1><%=userInfo.name%> 님 마이페이지</h1>
+    <div class="zone">
+      <div class="imgZone">
+        <img src="/<%=profInfo.path%>" /><br />
+        아이디: <%=userInfo.id%><br />
+        비밀번호: <%=userInfo.pswd%> <br />이름: <%=userInfo.name%><br />
+        나이: <%=userInfo.age%>
+      </div>
+
+      <!-- userInfo 뒤에 name 값을 적어야 하는데 착각해서 id 값을 넣었다. -->
+    </div>
+  </body>
+</html>

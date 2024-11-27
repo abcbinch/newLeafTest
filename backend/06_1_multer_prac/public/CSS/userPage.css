@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+}
+.zone {
+  margin: 0 auto;
+  border: 2px solid lightcoral;
+  line-height: 2em;
+}
+img {
+  width: 300px;
+  height: 300px;
+}

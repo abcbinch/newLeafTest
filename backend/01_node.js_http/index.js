@@ -18,7 +18,7 @@ const server = http.createServer(function (request, response) {
   //이건 따로따로
 
   try {
-    const data = fs.readFileSync("./inde.html"); //일부러 x를 뺐다.
+    const data = fs.readFileSync("./index.html"); //일부러 x를 뺐다.
     response.writeHead(200, { "content-type: ": "text/html; charset=utf-8" });
     response.end(data);
     //html 파일 한 번에 읽어오기

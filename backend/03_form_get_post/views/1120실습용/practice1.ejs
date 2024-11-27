@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연습용 1번째 방</title>
+  </head>
+  <body>
+    <h3>환영합니다! <%=memInfo.you%></h3>
+    <fieldset>
+      <legend>회원 정보</legend>
+      성별: <%=memInfo.gender%> <br />생년월일: <%=memInfo.byear%>년
+      <%=memInfo.bmonth%>월 <%=memInfo.bdate%>일 <br />관심사:
+      <%=memInfo.hobby%>
+    </fieldset>
+    <%if(addInfo){%>
+    <p>hello charlotte</p>
+    <%}%>
+  </body>
+</html>

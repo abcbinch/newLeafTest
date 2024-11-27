@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>multer 실습</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+      body {
+        background: lightsteelblue;
+        text-align: center;
+      }
+      h1 {
+        color: white;
+      }
+      form {
+        border: 2px solid rosybrown;
+        padding: 1rem;
+      }
+      .profile {
+        background: lemonchiffon;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 기본 Multer -->
+    <!-- 사진 하나 업로드 -->
+    <h1>multer 사용해보기</h1>
+    <h2>파일 한 개 업로드</h2>
+    <form action="/upload" method="post" enctype="mlutipart/form-data">
+      <!-- 반드시 post로 보내야 한다. 쿼리로 보낼 수 없는 데이터라서 -->
+      <!-- enctype을 반드시 설정해야 한다. -->
+      <input type="file" name="file" /><br />
+      <input type="text" name="title" placeholder="사진 제목" /><br />
+      <button>업로드</button>
+    </form>
+
+    <!-- input 하나, file 여러 개 -->
+    <h2>하나의 input에 파일 여러 개 업로드</h2>
+    <form action="/uploads/array" method="post" enctype="multipart/form-data">
+      <input type="file" name="multifiles" multiple /><br />
+      <!-- multiple이 있어야 한 번에 여러 개 올릴 수 있다. -->
+      <input type="text" name="title" placeholder="사진 제목" /><br />
+      <button>업로드</button>
+    </form>
+
+    <!-- input, file 전부 여러 개 -->
+    <h2>여러 개 input에 파일 업로드</h2>
+    <form action="/uploads/fields" method="post" enctype="multipart/form-data">
+      <input type="file" name="file1" /><br />
+      <input type="text" name="title1" placeholder="사진 제목1" /><br />
+      <input type="file" name="file2" /><br />
+      <input type="text" name="title2" placeholder="사진 제목2" /><br />
+      <input type="file" name="file3" /><br />
+      <input type="text" name="title3" placeholder="사진 제목3" /><br />
+
+      <button>업로드</button>
+    </form>
+    <br />
+    <hr style="border: 2px dashed gold" />
+    <br />
+
+    <!-- 동적 파일 업로드. 비동기 업로드. -->
+    <div class="dynamic">
+      <input type="file" name="dynamicFile" id="dynamicFile" /><br />
+      <input
+        type="text"
+        name="dynamicTitle"
+        id="dynamicTitle"
+        placeholder="프로필 설명"
+      /><br />
+      <button onclick="fileUpload()">프로필 업로드</button>
+      <button onclick="fileAndTextUpload()">프로필 업로드(with title)</button>
+    </div>
+    <img
+      src="/statics/default.jpg"
+      alt="기본 프로필 이미지"
+      width="200"
+      height="200"
+    />
+    <!-- 왜 사진이 안 나올까 -->
+    <div class="tit"></div>
+    <script src="/statics/JS/onlyFile.js"></script>
+    <script src="/statics/JS/bothFileText.js"></script>
+  </body>
+</html>
