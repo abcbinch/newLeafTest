@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>댓글</title>
+  </head>
+  <body>
+    <h1>롤링페이퍼</h1>
+    <a href="/">홈으로 이동</a>
+    <ul>
+      <%for(let i=0;i<commentInfo.length ;i++){%>
+      <li>
+        <b><%=commentInfo[i].userid%></b>
+        <a href="/comment/<%=commentInfo[i].id%>"><%=commentInfo[i].comment%></a>
+        
+      </li>
+      <%}%>
+    </ul>
+  </body>
+</html>

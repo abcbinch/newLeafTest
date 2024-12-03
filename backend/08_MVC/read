@@ -1,0 +1,8 @@
+View
+=> Controller
+
+Controller
+=> Model, Browser, Router
+
+Model
+=> Controller, 데이터 베이스
