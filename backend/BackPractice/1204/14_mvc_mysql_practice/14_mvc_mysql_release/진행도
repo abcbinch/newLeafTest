@@ -1,0 +1,9 @@
+1. create 성공
+2. get(회원정보check) 성공
+    그런데 profile 페이지가 안 뜬다.
+    document.location.href를 썼더니 routes에 설정해둔 controller 함수가
+    아예 작동을 안 했다. 시작도 안 한다.
+    그런데 document.location.href를 지웠더니 post여도 페이지 이동이 가능하고
+    controller 함수도 멀쩡히 작동했다.
+3. update 성공
+4. delete 성공

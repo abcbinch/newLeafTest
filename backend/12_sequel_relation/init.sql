@@ -1,0 +1,3 @@
+USE newLeaf;
+
+SHOW TABLES;

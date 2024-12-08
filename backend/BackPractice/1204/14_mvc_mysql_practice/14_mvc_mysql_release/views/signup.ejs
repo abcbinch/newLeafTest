@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <%- include('include/include', { title: '회원가입' })%>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <body>
+    <h1>회원가입</h1>
+    <form name="form_register">
+      <label for="userid">ID</label>
+      <input id="userid" type="text" name="userid" required /><br />
+      <label for="password">Password</label>
+      <input id="password" type="password" name="pw" required /><br />
+      <label for="nickname">Name </label>
+      <input id="nickname" type="text" name="name" required /><br />
+      <button type="button" onclick="register();">Register</button>
+    </form>
+    <!-- TODO: href 속성값 설정하기 -->
+    <a href="/user/signin">Login</a>
+
+    <script>
+      // TODO: [Register] 버튼 클릭시 서버에 회원가입 요청하기
+      // POST /user/signup
+      function register() {
+        const form = document.forms["form_register"];
+
+        //일단 controller에 model에서 만든 콜백함수가 들어간다는 걸 기억하자
+        //axios가 controller로 가고
+        //axios로 전달한 데이터가 controller의 콜백함수로 들어간다
+        //그럼 그 데이터를 model 폴더의 함수가 처리를 하고
+        //다시 그걸 controller로 돌려준다.
+        //그럼 그걸 controller가 routes를 통해 다시 axios로 돌려주고
+        //axios의 then 문 res 객체 안에 그 데이터가 담긴다.
+        //요약하면 axios => controller => model => controller => routes =>axios then
+
+        axios({
+          method: "post",
+          url: "/user/signup",
+          data: {
+            userid: form.userid.value,
+            pw: form.pw.value,
+            name: form.name.value,
+          },
+        })
+          .then((res) => {
+            //문제가 있다면
+            //controller와 model의
+            //createMember 함수 참고
+            console.log(res.data);
+            confirm("회원 등록이 완료되었습니다.");
+            document.location.href = "/user/signin";
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
+</html>

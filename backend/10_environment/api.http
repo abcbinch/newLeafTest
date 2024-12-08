@@ -1,0 +1,11 @@
+@server = http://localhost:8083;
+
+GET {{server}}/
+
+Post {{server}}/test
+Content-Type: application/json; charset=UTF-8;
+
+{
+    "name":"김주연",
+
+}

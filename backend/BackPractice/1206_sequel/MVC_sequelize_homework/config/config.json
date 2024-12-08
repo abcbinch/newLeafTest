@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "sesac",
+    "password": "0401",
+    "database": "newLeaf",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

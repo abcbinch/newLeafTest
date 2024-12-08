@@ -1,0 +1,69 @@
+sequelize의 내장 함수이기 때문에
+반드시 sequelize를 불러온 다음 쓰고,
+sequelize에 붙여서 쓴다.
+
+
+findAll()
+: SELECT * FROM.
+인자는 필요없다.
+
+findOne()
+: SELECT name FROM.
+객체 배열 인자 필요.
+where 키 안에, 또 다시 객체 값을 넣는다.
+객체의 키에는 select의 기준 즉, where 조건이 필요하다.
+ ex)findOne({
+    where: {
+        id: req.body.id,
+    }
+ })
+
+ create()
+ : INSERT INTO.
+ 객체 배열 인자 필요.
+ 내가 작성한 내용이 들어가 있다.
+  ex) create({
+    id: req.body.id,
+    name: req.body.name
+  })
+
+ update()
+ : UPDATE.
+ 객체 배열 인자 2개 필요.
+ 이것도 내가 작성한 내용이 들어가 있다.
+ 차이가 있다면, where 조건이 필요하기 때문에 인자가 두 개 필요하다.
+  ex) update({
+    name: req.body.name,
+    userid: req.body.userid
+  },{
+    where:{
+        id: req.body.id
+    }
+  })
+
+ destroy()
+ : DELETE.
+ 객체 배열 인자 필요.
+ where 조건이 필요하다.
+  ex) destroy({
+    where:{
+        id: req.body.id
+    }
+  })
+
+ define()
+ : CREATE TABLE.
+ 문자열 인자 하나, 객체 배열 인자 2개 필요.
+ 각각 '테이블의 이름', '칼럼 정의', '테이블 옵션'을 설정한다.
+ 칼럼을 정의 할 때는 또 다시 객체 배열을 넣는다.
+ 이건 그냥 models에서 보자.
+
+ sync()
+ : conn.createConnection.
+ 객체 배열 인자 하나 필요.
+ force라는 키의 값을 설정해야 한다. 테이블 생성 관련 사항이다.
+ true로 설정하면, 기존 테이블이 있을 시 지우고 새로 만든다. 
+ false로 설정하면, 기존 테이블이 있을 시 해당 테이블을 쓰고, 없을 경우에만
+ 새로 만든다.
+  ex) sync({force: false})
+

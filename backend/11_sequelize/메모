@@ -1,0 +1,24 @@
+npx sequelize init => config, migrations, models, seeders라는 폴더들이 생김
+config = 배포환경, 개발환경 등을 정리. 여기서는 맨 위, 개발환경만 빼고 다 지웠다.
+제이슨은 주석이 안 되기 때문에.
+migration = 지웠다.
+seeder = 지웠다.
+
+config.json에서 데이터베이스 잘 설정할 것.
+mysql 데이터베이스를 선택한 다음 user 테이블을 보면
+host, username 등을 확인할 수 있다.
+데이터베이스 이름이랑 비밀번호는 본인이 기억해야 하는 거고.
+그러므로 데이터베이스 연결이 안 된다면
+1. 일단 config.json에서 host, username, 비밀번호, 데이터베이스 이름
+제대로 적었는지 확인
+2. app.js에서 db 모듈 불러오기 잘 되었는지 확인
+3. app.js에서 db.sequelize.sync 잘 되었는지 확인
+4. controller에서 models/visitor 모듈 잘 불러왔는지 확인
+
+왜 delete(destroy)가 안 되냐
+ => 껐다 키니까 된다. 
+
+ 수정하기도 좀 살펴봐야겠다.
+ 이제는 이게 안 돼.
+
+

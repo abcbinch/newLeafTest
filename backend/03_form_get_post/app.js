@@ -17,7 +17,7 @@ app.use(express.json());
 //요청 > 응답
 //req와 res는 순서를 바꾸면 안된다.
 app.get("/", function (req, res) {
-  console.log("nodemon 실행");
+  // console.log("nodemon 실행");
   res.render("index");
 }); //확장자 생략 가능.
 //기본 페이지(/)로 들어갔을 때, response로 index.ejs를 보여주겠다.

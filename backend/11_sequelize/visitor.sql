@@ -1,5 +1,6 @@
 -- Active: 1733117003929@@127.0.0.1@3306@newleaf
 SHOW DATABASES;
+SHOW TABLES;
 
 USE newLeaf;
 

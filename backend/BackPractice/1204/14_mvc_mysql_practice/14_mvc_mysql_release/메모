@@ -1,0 +1,2 @@
+patch는 req.body
+delete는 req.body, req.query, req.params

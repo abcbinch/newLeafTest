@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <%- include('include/include', { title: '로그인' })%>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <body>
+    <h1>로그인</h1>
+    <!-- 
+      [로그인] 버튼을 클릭하면 profile.ejs에서 특정 유저 정보를 보여주어야 하기 때문에 
+      userid 정보를 value에 저장(POST /user/signin 요청의 응답을 받은 후 수행)하여
+      폼(input)이 보이지 않도록 hidden 처리함
+    -->
+    <form name="form_info" action="/user/profile" method="POST">
+      <input type="hidden" name="userid" />
+    </form>
+
+    <form name="form_login">
+      <label for="userid">ID</label>
+      <input id="userid" type="text" name="userid" required /><br />
+      <label for="password">Password</label>
+      <input id="password" type="password" name="pw" required /><br />
+      <button type="button" onclick="login();">Login</button>
+    </form>
+
+    <!-- TODO: href 속성값 설정하기 -->
+    <a href="/user/signup">Register</a>
+
+    <script>
+      // TODO: [Login] 버튼 클릭시 서버에 로그인 요청하기
+      // POST /user/signin
+      function login() {
+        const form = document.forms["form_login"];
+        const formInfo = document.forms["form_info"];
+
+        //데이터베이스에 저장되어 있는, realId, realPw와 비교해야 한다.
+        //일단 해당 아이디가 데이터베이스에 있는지부터 확인하고,
+        //그 다음 해당 아이디를 조건으로(where userid) 패스워드가 맞는지 확인한다.
+        //isSuccess로 true, false 값을 전달하고
+        //axios then 안에도 if문을 넣어서 어떤 값을 낼지 결정한다.
+
+        axios({
+          method: "post",
+          url: "/user/signin", //signin이 아니라 profile인가?
+          data: {
+            userid: form.userid.value,
+            pw: form.pw.value,
+          },
+        })
+          .then((res) => {
+            //문제가 있다면
+            //controller와 model의
+            //getMember 함수 참고
+
+            console.log("good");
+
+            // console.log(res.data);
+            // console.log(res.data.isSuccess);
+            if (!res.data.isSuccess) {
+              alert("존재하지 않는 아이디입니다. 로그인 실패");
+              form.userid.value = "";
+              form.pw.value = "";
+              return false;
+            } else if (res.data.isSuccess) {
+              const { id, pw } = res.data.pack[0];
+              // console.log(res.data.pack[0]);
+              if (form.pw.value !== pw) {
+                alert("비밀번호가 틀렸습니다. 로그인 실패.");
+                form.reset();
+                return false;
+              } else if (form.pw.value === pw) {
+                formInfo.userid.value = form.userid.value;
+                console.log(formInfo.userid.value);
+                console.log(form.userid.value);
+                formInfo.submit();
+                alert("로그인 성공");
+                //어디로 갈까?
+                //저 위에 action으로 user/profile로 이동하게 되어있다.
+                //controller의 showMemberInfo로 갔을 것이다.
+                //userid만 전달된다고 한다.
+                //그렇기 때문에 정보 전체를 가져오려면
+                //쿼리 함수가 필요하다.
+
+                // document.location.href = `/user/profile`;
+                //이게 문제였다. 이것 때문에 forminfo가 전혀 전달이 안 됐던 것
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+기존의 mysql에서
+sequelize로 바꿔서 진행 
+
+차이점.
+;1. 데이터베이스 정의 방식. 
+;기존 mysql: 
+mysql과 연결한 다음(vscode에는 관련 확장팩이 있다),
+sql 파일을 따로 만들거나 직접 mysql로 들어가서 데이터베이스를 미리 
+만들어야 한다.
+;sequelize: 
+models에서 js 코드로 정의 가능
+
+;2. 데이터베이스 연결 방식
+;기존 mysql: 
+model에서 mysql 모듈을 불러온 다음, createConnection
+메소드를 사용해서 host, user, password, database를 정의해준다. 주로
+conn이라는 변수에 저장한다.
+;sequelize: 
+npx sequelize init이라는 명령어를 입력하면 폴더 몇 개가 저절로
+생기고 세팅이 된다. 그 중 하나가 models 안의 index.js 폴더다.
+이 index.js 파일과, config.json(경우에 따라서는 .env와 config.js 파일), 
+app.js를 이용해서 데이터베이스를 연결한다.
+
+;3.데이터베이스 쿼리 작성 방식
+;기존 mysql:
+ model에서 conn의 query라는 메소드를 이용해서 첫 번째 인자에 쿼리문을 
+적어준다. 그럼 그 쿼리문을 처리한 결과가 두 번째 인자로 넣은 콜백 함수에 rows
+라는 인자로 담긴다.
+;sequelize: 
+model이 아닌 controller에 작성한다. 
+그리고 전용 메소드가 다 마련되어 있어서 더 편하다. javascript와 jQuery 같은 느낌.
+sequelize에 내장된 메소드이기 때문에 sequelize를 불러와서 써야 한다.
+define()은 CREATE(이건 controller가 아니라 models에서 쓴다),
+create()는 INSERT INTO,
+update()는 UPDATE,
+destroy()는 DELETE.
+async await을 써 줘야 한다. 사용하지 않으면, 삭제가 바로바로 실행되지 않는다.
+findAll()과 findOne()은 둘 다 SELECT 문을 실행하지만,
+전자는 전부 찾아오고, 후자는 특정 조건을 만족하는 한 가지만 찾아온다.
+findOne()은 반드시 async await을 써 줘야 한다. 안 그러면 무한루프 걸린다.
