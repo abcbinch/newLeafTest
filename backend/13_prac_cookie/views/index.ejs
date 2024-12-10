@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실습</title>
+
+    <!-- bootstrap cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- axios cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>실습. Cookie 연습</h1>
+    <p>
+      페이지 접속했을 때 위와 같은 창 보이게 하고, "오늘 그만 보기" 선택한 후
+      "닫기" 하면 브라우저를 껐다 켜도 창이 보이지 않게 하기
+    </p>
+    <p>
+      개발자도구 > Application > Storage > Cookies > 주소 클릭 후 쿠키를
+      삭제했다면 브라우저 새로고침시 alert 창이 나타나야 함!
+    </p>
+    <!-- Modal: 현재 보이지 않는 상태, 쿠키가 없으면 js 이용해서 나타나도록 설정하기 -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">cookie 실습</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            광고! 어쩌구 저쩌구 <br />
+            쿠키 실습
+            <div class="text-end mt-3">
+              <input type="checkbox" id="cookie" />
+              <label for="cookie" style="cursor: pointer"
+                >오늘 하루 보지 않음.</label
+              >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              onclick="closeModal();"
+            >
+              닫기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 참고) Bootstrap passing option 문서 참고
+      // - show(): 수동으로 모달을 엶
+      // - hide(): 수동으로 모달 숨김
+      // https://getbootstrap.com/docs/5.2/components/modal/#passing-options
+
+      const myModal = new bootstrap.Modal("#exampleModal");
+
+      // console.log(myModal);
+
+      /*
+      1. 쿠키 없으면 myModal.show() 시키기, 쿠키 있으면 xxx
+      2. 오늘하루 보지 않기 체크 후 닫기 버튼 누르면 24시간 짜리 쿠키 생성
+      */
+
+      // 서버에서 render 할 때 두번째 인자로 보내는 popup 키에 대한 데이터
+      // popup이라는 곳에 쿠키 데이터 담아서 보낸 후 확인해보기
+      //내가 생성한 'hideModal' 쿠키가 있는지 없는지 확인해야 한다.
+      console.log("popup >> ", "<%= popup %>");
+      const hideCookie = "<%= popup %>";
+      console.log("hideCookie 결과");
+      console.log(hideCookie);
+      console.log(typeof hideCookie);
+      //"<%= popup %>"
+      //이게 문자열로만 인식되고 객체로는 인식이 안 돼서
+      //객체를 찾아올 수 없음.
+      //콘솔로 찍어도 내용은 안 나오고 [object Object]라고만 뜬다.
+      //그렇다고 따옴표를 빼고 적으면 빨간줄이 뜬다.
+      //그래서 app.js에서 popup에 JSON.stringify(req.cookies)를 넣은 다음(챗봇)
+      ////////(이것도 객체로 인식되지 않는다. JSON.parse도 안 먹힌다)
+      ////////{&#34;hideModal&#34;:&#34;hideit&#34;}
+      ////////이렇게 나온다.
+      ////////<%- %>를 써보기도 했는데, 이건 오류가 뜬다. 괄호가 없다고 나오는데 괄호가 없는 부분이 없다.
+      //index.ejs 스크립트 코드(여기)로 보내서
+      //객체나 배열이 아니라, 문자열에 hideModal이 포함되어 있는지 아닌지로 판별
+
+      // TODO: popup 쿠키 값이 ''이라면, 모달 보여주기 (쿠키가 설정되지 않았다면)
+      //모달의 숨김 여부는 여기서 결정
+      //hideModal이라는 쿠키가 있다면 계속 숨기고
+      //없으면 드러낸다.
+      if (hideCookie.includes("hideit")) {
+        console.log("<%= popup %>");
+        console.log("쿠키!!!");
+        alert("hideModal 존재");
+        myModal.hide();
+      } else {
+        console.log("<%= popup %>");
+        console.log("쿠키 없음");
+
+        myModal.show();
+      }
+      // TODO: 모달 닫기 버튼 클릭 함수 완성
+      async function closeModal() {
+        const donotSee = document.getElementById("cookie");
+        console.log(`donotSee.checked 결과`);
+        console.log(donotSee.checked);
+        // 1. 체크 박스가 "체크되어 있다면" (오늘 하루 보지 않음을 선택했다면)
+        // POST /setCookie 요청 보내기 (back에서 popup 쿠키 설정하기)
+        if (donotSee.checked) {
+          try {
+            const baking = await axios({
+              //24시간 유지되는 쿠키 생성
+              method: "post",
+              url: "/set-cookie",
+            });
+
+            console.log("result.data의 결과");
+            console.log(baking.data);
+            if (baking.data.isCookie) {
+              alert("쿠키 생성 성공");
+
+              myModal.hide();
+            }
+          } catch (err) {
+            console.log(err);
+          }
+
+          // 2. js로 모달 닫기 수행 (위 참고 링크 확인)
+        } else {
+          alert("쿠키 없음");
+          myModal.hide();
+        }
+      } //여기까지가 closeModal 온클릭 함수
+    </script>
+  </body>
+</html>
